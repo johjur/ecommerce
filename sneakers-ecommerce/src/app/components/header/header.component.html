@@ -1,0 +1,64 @@
+<header class="header" role="banner">
+  <div class="header__left">
+    <button 
+      class="header__menu-toggle" 
+      (click)="toggleMobileMenu()" 
+      [class.header__menu-toggle--active]="isMobileMenuOpen"
+      aria-label="Toggle navigation menu"
+      [attr.aria-expanded]="isMobileMenuOpen"
+      aria-controls="main-navigation">
+      <img src="/assets/images/icon-menu.svg" alt="" aria-hidden="true">
+    </button>
+    <div class="header__logo">
+      <a href="/" aria-label="Sneakers home page">
+        <img src="/assets/images/logo.svg" alt="Sneakers">
+      </a>
+    </div>
+    <nav class="header__nav" [class.header__nav--open]="isMobileMenuOpen" id="main-navigation" aria-label="Main navigation">
+      <button 
+        #mobileNavClose
+        class="header__close" 
+        (click)="toggleMobileMenu()"
+        aria-label="Close navigation menu">
+        <img src="/assets/images/icon-close.svg" alt="" aria-hidden="true">
+      </button>
+      <ul role="menubar">
+        <li role="none"><a #firstNavLink href="#" class="header__nav-link" [class.header__nav-link--active]="activeNavIndex === 0" (click)="setActiveNavItem(0)" role="menuitem" tabindex="0">Collections</a></li>
+        <li role="none"><a href="#" class="header__nav-link" [class.header__nav-link--active]="activeNavIndex === 1" (click)="setActiveNavItem(1)" role="menuitem" tabindex="0">Men</a></li>
+        <li role="none"><a href="#" class="header__nav-link" [class.header__nav-link--active]="activeNavIndex === 2" (click)="setActiveNavItem(2)" role="menuitem" tabindex="0">Women</a></li>
+        <li role="none"><a href="#" class="header__nav-link" [class.header__nav-link--active]="activeNavIndex === 3" (click)="setActiveNavItem(3)" role="menuitem" tabindex="0">About</a></li>
+        <li role="none"><a href="#" class="header__nav-link" [class.header__nav-link--active]="activeNavIndex === 4" (click)="setActiveNavItem(4)" role="menuitem" tabindex="0">Contact</a></li>
+      </ul>
+    </nav>
+    <div 
+      class="header__overlay" 
+      *ngIf="isMobileMenuOpen" 
+      (click)="toggleMobileMenu()"
+      (keydown.escape)="closeMobileMenu()"
+      tabindex="-1"
+      aria-hidden="true">
+    </div>
+  </div>
+  <div class="header__right">
+    <button 
+      #cartButton
+      class="header__cart-button" 
+      (click)="toggleCart()"
+      aria-label="Shopping cart"
+      [attr.aria-expanded]="isCartOpen"
+      aria-controls="shopping-cart"
+      [attr.aria-label]="cartItemCount > 0 ? 'Shopping cart with ' + cartItemCount + ' items' : 'Shopping cart'">
+      <img src="/assets/images/icon-cart.svg" alt="" aria-hidden="true">
+      <span 
+        class="header__cart-badge" 
+        *ngIf="cartItemCount > 0"
+        aria-hidden="true">
+        {{ cartItemCount }}
+      </span>
+    </button>
+    <button class="header__avatar-button" aria-label="User profile">
+      <img src="/assets/images/image-avatar.png" alt="" class="header__avatar-img" aria-hidden="true">
+    </button>
+    <app-cart [isOpen]="isCartOpen" id="shopping-cart" (close)="closeCart()"></app-cart>
+  </div>
+</header>

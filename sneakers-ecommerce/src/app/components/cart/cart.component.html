@@ -1,0 +1,49 @@
+<div class="cart-dropdown" [class.cart-dropdown--open]="isOpen" role="dialog" aria-labelledby="cart-title" aria-modal="true" [attr.aria-hidden]="!isOpen">
+  <div class="cart-dropdown__header">
+    <h3 id="cart-title" class="cart-dropdown__title">Cart</h3>
+  </div>
+  
+  <div class="cart-dropdown__content" *ngIf="cartItems.length > 0; else emptyCart">
+    <ul class="cart-dropdown__items" role="list" aria-label="Cart items">
+      <li class="cart-dropdown__item" *ngFor="let item of cartItems; let i = index" role="listitem">
+        <div class="cart-dropdown__item-image">
+          <img [src]="item.image.startsWith('/') ? item.image : '/' + item.image" 
+               [alt]="item.name" 
+               [title]="item.name"
+               class="cart-dropdown__item-thumbnail"
+               width="50"
+               height="50">
+        </div>
+        <div class="cart-dropdown__item-details">
+          <div class="cart-dropdown__item-name">{{ item.name }}</div>
+          <div class="cart-dropdown__item-price">
+            ${{ item.price.toFixed(2) }} x {{ item.quantity }} 
+            <span class="cart-dropdown__item-total">${{ (item.price * item.quantity).toFixed(2) }}</span>
+          </div>
+        </div>
+        <button 
+          class="cart-dropdown__delete-btn" 
+          (click)="removeItem(item.id)" 
+          [attr.aria-label]="'Remove ' + item.name + ' from cart'"
+          tabindex="0"
+          title="Remove item from cart">
+          <img src="/assets/images/icon-delete.svg" alt="" aria-hidden="true">
+        </button>
+      </li>
+    </ul>
+    
+    <button 
+      class="cart-dropdown__checkout-btn" 
+      (click)="checkout()" 
+      [attr.aria-label]="'Proceed to checkout'"
+      tabindex="0">
+      Checkout
+    </button>
+  </div>
+  
+  <ng-template #emptyCart>
+    <div class="cart-dropdown__empty">
+      <p class="cart-dropdown__empty-message" tabindex="0">Your cart is empty.</p>
+    </div>
+  </ng-template>
+</div>

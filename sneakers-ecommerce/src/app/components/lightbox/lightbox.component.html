@@ -1,0 +1,63 @@
+<div 
+  class="lightbox" 
+  *ngIf="isOpen" 
+  (click)="closeModal()" 
+  role="dialog" 
+  aria-label="Product image lightbox" 
+  aria-modal="true">
+  <div class="lightbox__container" (click)="$event.stopPropagation()">
+    <button 
+      class="lightbox__close-btn" 
+      (click)="closeModal()" 
+      aria-label="Close lightbox">
+      <img src="/assets/images/icon-close.svg" alt="" aria-hidden="true">
+    </button>
+    
+    <div class="lightbox__main-container">
+      <button 
+        class="lightbox__nav-btn lightbox__nav-btn--prev" 
+        (click)="previousImage()" 
+        aria-label="Previous image">
+        <img src="/assets/images/icon-previous.svg" alt="" aria-hidden="true">
+      </button>
+      
+      <div class="lightbox__main-image">
+        <img 
+          [src]="images[currentIndex].main.startsWith('/') ? images[currentIndex].main : '/' + images[currentIndex].main" 
+          [alt]="'Product image ' + (currentIndex + 1) + ' of ' + images.length"
+          class="lightbox__img">
+      </div>
+      
+      <button 
+        class="lightbox__nav-btn lightbox__nav-btn--next" 
+        (click)="nextImage()" 
+        aria-label="Next image">
+        <img src="/assets/images/icon-next.svg" alt="" aria-hidden="true">
+      </button>
+    </div>
+    
+    <ul 
+      class="lightbox__thumbnails" 
+      role="listbox" 
+      aria-label="Product thumbnails">
+      <li 
+        *ngFor="let image of images; let i = index" 
+        class="lightbox__thumbnail" 
+        [class.lightbox__thumbnail--active]="i === currentIndex"
+        (click)="selectImage(i)"
+        (keydown.enter)="selectImage(i)"
+        (keydown.space)="selectImage(i)"
+        tabindex="0"
+        role="option"
+        [attr.aria-label]="'Select thumbnail ' + (i + 1)"
+        [attr.aria-selected]="i === currentIndex"
+        [title]="'Select thumbnail ' + (i + 1)">
+        <img 
+          [src]="image.thumbnail.startsWith('/') ? image.thumbnail : '/' + image.thumbnail" 
+          alt="" 
+          aria-hidden="true"
+          class="lightbox__thumbnail-img">
+      </li>
+    </ul>
+  </div>
+</div>
