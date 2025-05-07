@@ -18,19 +18,23 @@ export class ProductDetailComponent {
   productImages = [
     {
       main: '/assets/images/image-product-1.jpg',
-      thumbnail: '/assets/images/image-product-1-thumbnail.jpg'
+      thumbnail: '/assets/images/image-product-1-thumbnail.jpg',
+      altText: 'Right leg sneaker from side view and left leg sneaker on tip facing the bottom of shoe. White leather with light brown accents, white shoelaces, and minimalistic style.'
     },
     {
       main: '/assets/images/image-product-2.jpg',
-      thumbnail: '/assets/images/image-product-2-thumbnail.jpg'
+      thumbnail: '/assets/images/image-product-2-thumbnail.jpg',
+      altText: 'Shoes with two stones and a branch artistically placed, one shoe on top of two rocks. White leather with light brown toe and bottom sides, white shoelaces, minimalistic style.'
     },
     {
       main: '/assets/images/image-product-3.jpg',
-      thumbnail: '/assets/images/image-product-3-thumbnail.jpg'
+      thumbnail: '/assets/images/image-product-3-thumbnail.jpg',
+      altText: 'Right leg shoe on top of two rocks with orange background between rocks. White leather upper with light brown toe area, white shoelaces, minimalistic style.'
     },
     {
       main: '/assets/images/image-product-4.jpg',
-      thumbnail: '/assets/images/image-product-4-thumbnail.jpg'
+      thumbnail: '/assets/images/image-product-4-thumbnail.jpg',
+      altText: 'Left leg shoe from side profile with heel balanced on top of two rocks positioned horizontally. White sole, white shoelaces, light brown toe and bottom sides, white leather upper with orange heel part, minimalistic style.'
     }
   ];
 

@@ -23,9 +23,13 @@
       
       <div class="lightbox__main-image">
         <img 
+          #mainImage
           [src]="images[currentIndex].main.startsWith('/') ? images[currentIndex].main : '/' + images[currentIndex].main" 
-          [alt]="'Product image ' + (currentIndex + 1) + ' of ' + images.length"
-          class="lightbox__img">
+          [alt]="images[currentIndex].altText || 'Product image ' + (currentIndex + 1) + ' of ' + images.length"
+          [title]="images[currentIndex].altText || 'Product image ' + (currentIndex + 1) + ' of ' + images.length"
+          class="lightbox__img"
+          tabindex="0"
+          [attr.aria-label]="images[currentIndex].altText || 'Product image ' + (currentIndex + 1) + ' of ' + images.length">
       </div>
       
       <button 
@@ -49,9 +53,9 @@
         (keydown.space)="selectImage(i)"
         tabindex="0"
         role="option"
-        [attr.aria-label]="'Select thumbnail ' + (i + 1)"
+        [attr.aria-label]="image.altText || 'Select thumbnail ' + (i + 1)"
         [attr.aria-selected]="i === currentIndex"
-        [title]="'Select thumbnail ' + (i + 1)">
+        [title]="image.altText || 'Select thumbnail ' + (i + 1)">
         <img 
           [src]="image.thumbnail.startsWith('/') ? image.thumbnail : '/' + image.thumbnail" 
           alt="" 

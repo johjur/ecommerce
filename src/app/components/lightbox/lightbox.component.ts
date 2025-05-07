@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 interface ProductImage {
   main: string;
   thumbnail: string;
+  altText?: string;
 }
 
 @Component({
@@ -20,6 +21,7 @@ export class LightboxComponent implements AfterViewInit, OnChanges {
   @Output() close = new EventEmitter<void>();
   
   @ViewChild('closeButton') closeButton!: ElementRef;
+  @ViewChild('mainImage') mainImage!: ElementRef;
   
   private lastFocusedElement: HTMLElement | null = null;
   
@@ -42,6 +44,12 @@ export class LightboxComponent implements AfterViewInit, OnChanges {
           this.lastFocusedElement?.focus();
         }, 100);
       }
+    }
+    
+    if (changes['currentIndex'] && this.isOpen && this.mainImage?.nativeElement) {
+      setTimeout(() => {
+        this.mainImage.nativeElement.focus();
+      }, 50);
     }
   }
   
@@ -83,7 +91,13 @@ export class LightboxComponent implements AfterViewInit, OnChanges {
     const focusableElements = this.getFocusableElements(lightboxElement);
     if (focusableElements.length === 0) return;
     
-    (focusableElements[0] as HTMLElement).focus();
+    setTimeout(() => {
+      if (this.mainImage && this.mainImage.nativeElement) {
+        this.mainImage.nativeElement.focus();
+      } else {
+        (focusableElements[0] as HTMLElement).focus();
+      }
+    }, 100);
     
     this.setupFocusTrap(lightboxElement, focusableElements);
   }
@@ -109,7 +123,7 @@ export class LightboxComponent implements AfterViewInit, OnChanges {
   
   private getFocusableElements(element: HTMLElement): NodeListOf<Element> {
     return element.querySelectorAll(
-      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"]), img[tabindex="0"]'
     );
   }
   

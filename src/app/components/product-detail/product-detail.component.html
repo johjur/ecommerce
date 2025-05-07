@@ -8,7 +8,7 @@
       (keydown.enter)="openLightbox()"
       (keydown.space)="openLightbox()"
       title="Click to open image gallery">
-      <img [src]="productImages[currentImageIndex].main" alt="Fall Limited Edition Sneakers" class="product-detail__main-image-img">
+      <img [src]="productImages[currentImageIndex].main" [alt]="productImages[currentImageIndex].altText" [title]="productImages[currentImageIndex].altText" class="product-detail__main-image-img">
       <div class="product-detail__image-overlay">
         <span class="product-detail__zoom-text">Click to zoom</span>
       </div>
@@ -36,31 +36,31 @@
         (keydown.space)="changeImage(i)"
         tabindex="0"
         role="option"
-        [attr.aria-label]="'View product image ' + (i + 1)"
+        [attr.aria-label]="image.altText"
         [attr.aria-selected]="i === currentImageIndex"
-        [title]="'View product image ' + (i + 1)">
+        [title]="image.altText">
         <img [src]="image.thumbnail" [alt]="''" aria-hidden="true" class="product-detail__thumbnail-img">
       </li>
     </ul>
   </div>
   
-  <div class="product-detail__info">
-    <div class="product-detail__company">SNEAKER COMPANY</div>
+  <div class="product-detail__info" role="region" aria-label="Product information">
+    <div class="product-detail__company" aria-label="Brand">SNEAKER COMPANY</div>
     <h1 class="product-detail__title">Fall Limited Edition Sneakers</h1>
     <p class="product-detail__description">
       These low-profile sneakers are your perfect casual wear companion. Featuring a 
       durable rubber outer sole, they'll withstand everything the weather can offer.
     </p>
     
-    <div class="product-detail__price">
+    <div class="product-detail__price" role="region" aria-label="Product pricing">
       <div class="product-detail__current-price">
-        <span class="product-detail__price-value">$125.00</span>
-        <span class="product-detail__discount">50%</span>
+        <span class="product-detail__price-value" aria-label="Current price: $125.00">$125.00</span>
+        <span class="product-detail__discount" aria-label="Discount percentage">50%</span>
       </div>
       <div class="product-detail__original-price" aria-label="Original price: $250.00">$250.00</div>
     </div>
     
-    <div class="product-detail__actions">
+    <div class="product-detail__actions" role="region" aria-label="Product actions">
       <div class="product-detail__quantity" role="group" aria-label="Quantity selector">
         <button 
           class="product-detail__quantity-btn product-detail__quantity-btn--minus" 
@@ -69,7 +69,7 @@
           [attr.aria-disabled]="quantity < 1">
           <img src="/assets/images/icon-minus.svg" alt="" aria-hidden="true">
         </button>
-        <span class="product-detail__quantity-value" aria-live="polite">{{ quantity }}</span>
+        <span class="product-detail__quantity-value" aria-live="polite" [attr.aria-label]="'Quantity: ' + quantity">{{ quantity }}</span>
         <button 
           class="product-detail__quantity-btn product-detail__quantity-btn--plus" 
           (click)="increaseQuantity()"
@@ -81,7 +81,7 @@
       <button 
         class="product-detail__add-btn" 
         (click)="addToCart()"
-        aria-label="Add to cart">
+        [attr.aria-label]="'Add ' + quantity + ' items to cart for $' + (125.00 * quantity | number:'1.2-2')">
         <img src="/assets/images/icon-cart.svg" alt="" aria-hidden="true">
         Add to cart
       </button>
